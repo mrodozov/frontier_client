@@ -924,6 +924,8 @@ int frontier_getRawData(FrontierChannel u_channel,const char *uri)
 int frontier_postRawData(FrontierChannel u_channel,const char *uri,const char *body)
  {
   Channel *chn=(Channel*)u_channel;
+  if (!chn) { frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"the channel is not a valid object %d");  }
+  if (!chn) { frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"channel_pid: %d",(int)(chn->pid));  }
   int ret=FRONTIER_OK;
   fn_hashval *hashval;
   FrontierHttpClnt *clnt;
