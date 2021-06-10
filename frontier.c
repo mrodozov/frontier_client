@@ -12,7 +12,7 @@
  *  http://fermitools.fnal.gov/about/terms.html
  *
  */
-
+#include <stdbool.h>
 #include <frontier_client/frontier.h>
 #include "fn-internal.h"
 #include "fn-hash.h"
@@ -924,8 +924,6 @@ int frontier_getRawData(FrontierChannel u_channel,const char *uri)
 int frontier_postRawData(FrontierChannel u_channel,const char *uri,const char *body)
  {
   Channel *chn=(Channel*)u_channel;
-  if (!chn) { frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"the channel is not a valid object %d");  }
-  if (!chn) { frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"channel_pid: %d",(int)(chn->pid));  }
   int ret=FRONTIER_OK;
   fn_hashval *hashval;
   FrontierHttpClnt *clnt;
@@ -948,9 +946,10 @@ int frontier_postRawData(FrontierChannel u_channel,const char *uri,const char *b
      // re-set id to use new pid
      set_frontier_id();
    }
-  if(pid
-     !=
-     chn->pid)
+  //bool pid_is_chnpid = chn->pid==pid;
+  if(false)//pid
+     //!=
+     //chn->pid)
    {
      frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"dropping any chan %d persisted connection because process id changed",chn->seqnum);
      chn->pid=pid;
