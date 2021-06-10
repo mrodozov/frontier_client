@@ -13,27 +13,24 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
 #include <frontier_client/frontier.h>
 #include "fn-internal.h"
 #include "fn-hash.h"
 #include "fn-zlib.h"
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <pwd.h>
 #include <fcntl.h>
 #include <openssl/bio.h>
 #include <openssl/pem.h>
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
+#include <pwd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
 int frontier_log_level;
 char *frontier_log_file;
@@ -933,10 +930,10 @@ int frontier_postRawData(FrontierChannel u_channel,const char *uri,const char *b
   char err_last_buf[ERR_LAST_BUF_SIZE];
   int curproxy,curserver;
   int have_reset_serverlist=0;
-  pid_t pid;
+  pid_t pid = getpid();
   char nowbuf[26];
 
-  if((pid=getpid())!=frontier_pid)
+  if(pid!=frontier_pid)
    {
      pid_t oldpid;
      // process must have forked
@@ -949,7 +946,9 @@ int frontier_postRawData(FrontierChannel u_channel,const char *uri,const char *b
      // re-set id to use new pid
      set_frontier_id();
    }
-  if(pid!=chn->pid)
+  if(pid
+     !=
+     chn->pid)
    {
      frontier_log(FRONTIER_LOGLEVEL_DEBUG,__FILE__,__LINE__,"dropping any chan %d persisted connection because process id changed",chn->seqnum);
      chn->pid=pid;
