@@ -23,7 +23,7 @@
 
 #define FRONTIER_MAX_PAYLOADNUM	32
 
-typedef unsigned long FrontierChannel;
+typedef unsigned int FrontierChannel;
 typedef void FrontierRSBlob;
 
 /*frontierRSBlob_get is deprecated, use frontierRSBlob_open instead*/
