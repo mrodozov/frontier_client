@@ -20,10 +20,11 @@
 #include "frontier_config.h"
 #include "frontier_log.h"
 #include "frontier_error.h"
+#include <stdint.h>
 
 #define FRONTIER_MAX_PAYLOADNUM	32
 
-typedef unsigned int FrontierChannel;
+typedef uintptr_t FrontierChannel;
 typedef void FrontierRSBlob;
 
 /*frontierRSBlob_get is deprecated, use frontierRSBlob_open instead*/
